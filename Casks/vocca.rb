@@ -7,15 +7,16 @@
 #   xattr -dr com.apple.quarantine /Applications/Vocca.app   # BEFORE first launch
 #   open /Applications/Vocca.app
 #
-# DO NOT PUBLISH THIS TO THE TAP YET. `sha256` below is a placeholder: the first DMG
-# release has not been cut. v0.1.0 shipped a `zip -r` archive that flattened
-# whisper.framework's symlinks, so its bundle fails `codesign --verify` and there is
-# nothing installable to point at. Fill the sha256 line from the SHA256SUMS.txt of the first
-# release built by the DMG packaging step, then push to the tap — not before.
+# PUBLISHED. The tap carries this file as Casks/vocca.rb and `brew install` is proven on
+# the founder's machine. The old "do not publish, the sha256 is a placeholder" warning that
+# stood here is retired: it described v0.1.0, which shipped a `zip -r` archive that
+# flattened whisper.framework's symlinks, so its bundle failed `codesign --verify` and
+# there was nothing installable to point at. The DMG packaging step fixed that.
 #
-# Shipped: v0.2.0 (2026-09-03) — https://github.com/haqaliz/vocca/releases/tag/v0.2.0
-# sha256 from the release's SHA256SUMS.txt; the cask is published to the tap as
-# Casks/vocca.rb.
+# Shipped: v0.4.0 (2026-09-26) — https://github.com/haqaliz/vocca/releases/tag/v0.4.0
+# The `sha256` below is the real digest from that release's SHA256SUMS.txt, verified equal
+# to it. At each release, bump `version`, copy the new sha256 out of SHA256SUMS.txt, and
+# mirror this file to the tap — `CaskVersionTests` pins the version against the bundle.
 #
 # Vocca is signed with an Apple Development certificate, which Gatekeeper rejects for
 # downloaded apps, so the quarantine flag has to come off by hand. Two things about that,
@@ -32,8 +33,8 @@
 # All of this goes away the day notarization lands. See
 # docs/planning/notarization/runbook.md step 6 for everything to delete then.
 cask "vocca" do
-  version "0.2.1"
-  sha256 "0721999483d15097ba100e012a92431609be0cc639ac9151769708c04c374ac9"
+  version "0.4.0"
+  sha256 "445f1b74626a71df8681ac299f496cab375cdf7362be4210a1a7f7e397c1b334"
 
   url "https://github.com/haqaliz/vocca/releases/download/v#{version}/Vocca-v#{version}.dmg"
   name "Vocca"
